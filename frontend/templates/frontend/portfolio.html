@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block title %} Portfolio {% endblock %}
+
+{% block body %}
+<style>
+  /* Style the tab */
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons that are used to open the tab content */
+  .tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+	background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+	background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+	display: none;
+	
+  }
+.card-btns {
+  background: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+    color: white;
+    padding: 6px 0;
+    border-radius: 30px;
+    width: 90px;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+}
+
+.ProjectBtns {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    width: 100%;
+}
+</style>
+  <!-- Top bar -->
+  <div class="top-bar">
+    <h1>Portfolio</h1>
+    <p><a href="{% url 'index' %}">Home</a> / Portfolio</p>
+  </div>
+  <!-- end Top bar -->
+
+<!-- main container -->
+<div class="main-container portfolio-inner">
+  <!-- portfolio div -->
+  <div class="portfolio-div">
+    <div class="portfolio">
+      <!-- portfolio_filter -->
+      <div class="categories-grid wow fadeInLeft">
+        <nav class="categories text-center">
+          <!-- <ul class="portfolio_filter">
+            <li><a onclick="openTab(event, 'Web Development')" class="tablinks " id="defaultOpen">Web Development</a></li>
+            <li><a onclick="openTab(event, 'Scripting')" class="tablinks">Scripting</a></li>
+            <li><a onclick="openTab(event, 'Other')" class="tablinks">Other</a></li>
+          </ul> -->
+        </nav>
+      </div>
+      <!-- portfolio_filter -->
+
+      <!-- portfolio_container -->
+  <!-- single work -->
+  <div id="Projects" class="Projects">
+    <h1>My Recent <span>Projects</span> </h1>
+    <div class="Projects__Gallery no-gutters">
+     
+      
+
+    </div>
+  </div>
+  <!-- end single work -->
+
+<!-- end portfolio_container -->
+
+    </div>
+    <!-- portfolio -->
+  </div>
+  <!-- end portfolio div -->
+</div>
+<!-- end main container -->
+
+<script>
+    
+  projects = document.querySelector(".Projects__Gallery")
+  fetch('/getProfiles')
+    .then(response => response.json())
+    .then(data => {
+      profiles = data['profile']
+      for (var i = 0; i < profiles.length; i ++) {
+        if (profiles[i]['project_type'] == "Scripting") {
+          projects.innerHTML += `
+          <div class="card  ${profiles[i]['project_type']}" style="width: 18rem; text-align: center;">
+        <div class="card-body">
+         <h2>${profiles[i]['title']}</h2>
+         <div class="ProjectBtns"><a class="card-btns"
+          href="/profile/${profiles[i]['id']}">View</a></div>
+        </div>
+      </div>`
+        }
+        else {
+        projects.innerHTML += `
+        <div class="Project ${profiles[i]['project_type']} ">
+        <a href="/profile/${profiles[i]['id']}"><div class="react-reveal Project__Img"
+          style="animation-fill-mode: both; animation-duration: 1000ms; animation-iteration-count: 1; opacity: 1; animation-name: react-reveal-890842122557023-1;">
+          <img src="${profiles[i]['img_link']}" alt=""></div></a>
+        <div class="react-reveal Project__Content"
+          style="animation-fill-mode: both; animation-duration: 1000ms; animation-iteration-count: 1; opacity: 1; animation-name: react-reveal-890842122557023-1;">
+          <h4>${profiles[i]['title']}</h4>
+          <div class="Project__Btns"><a class="previewBtn">Preview</a><a
+              href="/profile/${profiles[i]['id']}">Open</a></div>
+        </div>
+      </div>
+        `    
+    }
+      }
+    })
+    function openTab(evt, porfolio_tab) {
+      // Declare all variables
+      var i, tabcontent, tablinks;
+    
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+    
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      open_tabs = document.getElementsByClassName(porfolio_tab)
+      for (var i = 0; i < open_tabs.length; i++) {
+        open_tabs[i].style.display = "block";
+
+      }
+      evt.currentTarget.className += " active";
+    }
+    df_open = document.getElementById("defaultOpen")
+    if (df_open != null) {
+      df_open.click();
+    }
+</script>
+
+{% endblock %}

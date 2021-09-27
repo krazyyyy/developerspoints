@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {{ profile.title }} | Portfolio {% endblock %}
+
+{% block body %}
+
+    <div class="ProjectReview">
+      {% if profile.project_type == "Web Development" %}
+      <h1>{{ profile.title }}</h1>
+        {% for i in profile.project_picture.all %}
+        {% if not i.responsive %}
+        <div class="PR">
+          <h3>{{ i.heading }}</h3><img src="{{ i.image.url }}" alt="Landing Page">
+        </div>
+        {% endif %}
+        {% endfor %}
+        <h1 style="margin-top: 5rem; width: 100%;"><span>Responsivness</span></h1>
+        <div class="Responsivness">
+          {% for i in profile.project_picture.all %}
+          {% if i.responsive %}
+          
+          <div class="PR PRMOB">
+            <h3>{{ i.heading }}</h3><img src="{{ i.image.url }}" alt="Landing Page">
+          </div>
+          {% endif %}
+          {% endfor %}
+          
+        </div>
+        {% endif %}
+        {% if profile.project_type == "Scripting" %}
+      
+        <div class="script-container" style="width: 100%; padding: 20px;">
+        <div class="col-md-12">
+          <h3 class="text-uppercase">{{ profile.title }}</h3>
+          <h5>{{ profile.project_type }}</h5>
+          <div class="h-30"></div>
+        </div>
+        <div class="col-md-9">
+          {{ profile.description | safe }}
+        </div>
+        <div class="col-md-12">
+          
+          <h5>Tools</h5>
+          {{ profile.attrs | safe }}
+          <div class="h-30"></div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+{% endblock %}

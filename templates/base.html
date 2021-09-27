@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+	================================================== -->
+  <meta charset="utf-8">
+  <title>{% block title %} {% endblock %} - Developer Points</title>
+
+  <!-- Mobile Specific Metas
+	================================================== -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Personal Portfolio Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Themefisher Personal Portfolio Template v1.0">
+
+  <!-- ** Plugins Needed for this Project ** -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap-bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/css-ionicons.min.css' %}">
+
+  <!-- Main Stylesheet -->
+  <link href="{% static 'css/css-style.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+
+  <!--Favicon-->
+  <link rel="shortcut icon" href="{% static 'favicons/6162-images-favicon.png' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'favicons/7326-images-favicon.png' %}" type="image/x-icon">
+  <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+  {% for message in messages %}
+  <script>
+
+    Swal.fire({
+      title: 'Developers Points',
+      text: '{{ message }}',
+      icon: '{{ message.tag }}',
+      confirmButtonText: 'Close'
+    })
+  </script>
+  {% endfor %}
+   <!-- Preloader -->
+   <div id="preloader" style="display: none;">
+    <div class="pre-container">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+  </div>
+  <!-- end Preloader -->
+
+<!-- box header -->
+<header class="box-header">
+  
+  <!-- box-nav -->
+  <span class="box-primary-nav-trigger">
+    <span class="box-menu-text">Menu</span><span class="box-menu-icon"></span>
+  </span>
+  <!-- box-primary-nav-trigger -->
+</header>
+<!-- end box header -->
+
+<!-- nav -->
+<nav>
+  <ul class="box-primary-nav">
+    <li class="box-label">About Us</li>
+
+    <li><a href="{% url 'index' %}">Home</a></li>
+    <li><a href="{% url 'about' %}">About us</a></li>
+    <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+    <li><a href="{% url 'contact' %}">Contact Us</a></li>
+
+    <li class="box-label">Follow Us</li>
+
+    <li class="box-social"><a href="https://www.facebook.com/DevelopersPoint-101551344937496"><i class="ion-social-facebook"></i></a></li>
+    <li class="box-social"><a href="https://www.instagram.com/developerspoint/?hl=en"><i class="ion-social-instagram-outline"></i></a></li>
+    <li class="box-social"><a href="https://www.linkedin.com/company/79732487"><i class="ion-social-linkedin"></i></a></li>
+  </ul>
+</nav>
+<!-- end nav -->
+{% block body %}
+
+{% endblock %}
+<!-- footer -->
+<footer>
+  <div class="container-fluid">
+    <p class="copyright">&copy; Copyright 2021, &amp; Powered by <a href="{% url 'index' %}">Developers Points</a></p>
+  </div>
+</footer>
+<!-- end footer -->
+
+<!-- back to top -->
+<a href="#!" class="cd-top"><i class="ion-android-arrow-up"></i></a>
+<!-- end back to top -->
+<!-- jQuery -->
+<script src="{% static 'js/5496-plugins-jquery.min.js' %}"></script>
+
+<!-- Plugins Needed for this Project -->
+<script src="{% static 'js/bootstrap-bootstrap.min.js' %}"></script>
+<script src="{% static 'js/9854-plugins-menu.js' %}"></script>
+<script src="{% static 'js/animated-headline-animated-headline.js' %}"></script>
+<script src="{% static 'js/isotope-isotope.pkgd.min.js' %}"></script>
+
+<!-- Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script>
+<script src="{% static 'js/google-map-map.js' %}" defer></script>
+
+<!-- Main Script -->
+<script src="{% static 'js/2-js-script.js' %}"></script>
+
+
+
+</body>
+
+</html>

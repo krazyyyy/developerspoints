@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+
+
+
+
+<!-- box-intro -->
+<section class="box-intro">
+  <div class="table-cell">
+    <h1 class="box-headline letters rotate-2">
+      <span class="box-words-wrapper">
+        <b class="is-visible">Web&nbsp;Design.</b>
+        <b>&nbsp;Graphics&nbsp;Design.</b>
+        <b>&nbsp;Web&nbsp;Scraping.</b>
+        <b>&nbsp;Automation.</b>
+        <b>&nbsp;Scripting.</b>
+      </span>
+    </h1>
+    <h5>Developer Points, Everything you need!!</h5>
+  </div>
+
+  <div class="mouse">
+    <div class="scroll"></div>
+  </div>
+</section>
+<!-- end box-intro -->
+<!-- portfolio div -->
+
+<div id="Projects" class="Projects">
+  <h1>My Recent <span>Projects</span> </h1>
+  <div class="Projects__Gallery">
+   
+  </div>
+</div>
+
+<!-- end portfolio div -->
+<div class="center-contact Projects" style="text-align: center; background: #fff;">
+  <h1>Contact <span>Us</span> </h1>
+  <form class="pr-0 pr-lg-4" action="{% url 'contactResponse' %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-contact">
+          <input type="text" name="name" required>
+          <span>Your Name</span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-contact">
+          <input type="text" name="email" required>
+          <span>Your Email</span>
+        </div>
+      </div>
+    
+      <div class="col-md-12">
+        <div class="textarea-contact">
+          <textarea name="message" required></textarea>
+        
+        </div>
+      </div>
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-box">Send</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  projects = document.querySelector(".Projects__Gallery")
+  fetch('/getProfiles')
+    .then(response => response.json())
+    .then(data => {
+      profiles = data['profile']
+      for (var i = 0; i < profiles.length; i ++) {
+        if (profiles[i]['project_type'] == "Scripting") {
+          projects.innerHTML += `
+          <div class="card tabcontent ${profiles[i]['project_type']}" style="width: 18rem; text-align: center;">
+        <div class="card-body">
+         <h2>${profiles[i]['title']}</h2>
+         <div class="ProjectBtns"><a class="card-btns"
+          href="/profile/${profiles[i]['id']}">View</a></div>
+        </div>
+      </div>`
+        }
+        else {
+        projects.innerHTML += `
+        <div class="Project ${profiles[i]['project_type']} tabcontent">
+        <a href="/profile/${profiles[i]['id']}"><div class="react-reveal Project__Img"
+          style="animation-fill-mode: both; animation-duration: 1000ms; animation-iteration-count: 1; opacity: 1; animation-name: react-reveal-890842122557023-1;">
+          <img src="${profiles[i]['img_link']}" alt=""></div></a>
+        <div class="react-reveal Project__Content"
+          style="animation-fill-mode: both; animation-duration: 1000ms; animation-iteration-count: 1; opacity: 1; animation-name: react-reveal-890842122557023-1;">
+          <h4>${profiles[i]['title']}</h4>
+          <div class="Project__Btns"><a class="previewBtn" href="/Sorry">Preview</a><a
+              href="/profile/${profiles[i]['id']}">Open</a></div>
+        </div>
+      </div>
+        `    
+    }
+      }
+    })
+</script>
+
+
+
+
+
+{% endblock %}
